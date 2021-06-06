@@ -1,10 +1,10 @@
 import React from 'react';
 import './chatWindow.css';
 
-function ChatWindow() {
+const ChatWindow = () => {
   return (
-    <div className="chatWindow">
-      <div style={{ 
+    <section className="chatWindow">
+      <section style={{ 
         width: 300, 
         verticalAlign: 'center', 
         marginTop: '25vh', 
@@ -12,12 +12,12 @@ function ChatWindow() {
         position: 'unset',
       }} 
       className="window">
-        <div className="title-bar">
-          <div className="title-bar-text">
+        <section className="title-bar">
+          <section className="title-bar-text">
           mikeyBot
-          </div>
-        </div>
-        <div className="window-body">
+          </section>
+        </section>
+        <section className="window-body">
           <textarea className="textArea"
             style={{ 
               width: 150, 
@@ -25,7 +25,7 @@ function ChatWindow() {
               marginLeft: 10,
               marginTop: 10,
             }}>
-            textarea here
+            chat log here
           </textarea>
           <textarea
             style={{ 
@@ -34,13 +34,14 @@ function ChatWindow() {
               marginLeft: 10,
               marginTop: 10,
             }}>
-            textarea here
+            type here
           </textarea>
-          <p>Hi Mikey 🙂✨</p>
-        </div>
-      </div>
-    </div>
+          <button>send</button>
+          {/* <p>Hi Mikey 🙂✨</p> */}
+        </section>
+      </section>
+    </section>
   );
-}
+};
 
 export default ChatWindow;
