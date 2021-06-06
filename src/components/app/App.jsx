@@ -1,7 +1,16 @@
 import React from 'react';
 // import { fbMessageData } from '../../utils/data';
+import './app.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
+import Home from '../home/Home';
 
 const App = () => {
+//Hii, are these following commented functions for the chat window? 
+
   // let whatever = [];
   // let whatever2 = [];
   // let fbMessageThing2;
@@ -54,11 +63,17 @@ const App = () => {
 
   // console.log(whatever.join('\r\n'));
   return (
-    <section>
-      <p>hey rhone</p>
-      {/* { thing } */}
-      {/* { displayThing } */}
-    </section>
+    <div>
+      <Router>               
+        <Switch>
+          <Route 
+            path="/" 
+            exact
+            render={(routerProps) => <Home {...routerProps} />} 
+          />
+        </Switch>
+      </Router>
+    </div>
   );
 }; 
 

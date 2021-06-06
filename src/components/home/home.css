@@ -1,0 +1,11 @@
+body {
+    background-image: 
+    url("/src/images/windows-xp-bliss-wide.jpeg") ;
+    background-size: cover;
+    min-height: 100vh;
+    width: relative;
+  }
+
+  p {
+      font-size: 2rem;
+  }
