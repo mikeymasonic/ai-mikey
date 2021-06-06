@@ -1,13 +1,16 @@
 import React from 'react';
+import ChatWindow from '../chatWindow/ChatWindow';
 import './home.css';
 
 function Home() {
   return (
-    <page>
-      <p className="hiMikey">Hi Mikey 🙂✨</p>
+    <>
       {/* { thing } */}
       {/* { displayThing } */}
-    </page>
+      <div>
+        <ChatWindow />
+      </div>
+    </>
   );
 }
 
