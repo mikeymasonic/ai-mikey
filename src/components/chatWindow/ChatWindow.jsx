@@ -8,19 +8,41 @@ const axios = require('axios');
 const ChatWindow = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [generatedMessage, setGeneratedMessage] = useState('');
 
-  const getCall = () => {
-    axios.get('https://thing3.hosted-models.runwayml.cloud/v1/info')
-      .then(function (response) {
-        // handle success
-        console.log(response);
+  // const getCall = () => {
+  //   axios.get('https://thing3.hosted-models.runwayml.cloud/v1/info')
+  //     .then(function (response) {
+  //       // handle success
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       // handle error
+  //       console.log(error);
+  //     })
+  //     .then(function () {
+  //       // always executed
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   messageArray.push('LpCpUnK: ' + generatedMessage);
+
+    
+  // }, [postCall]);
+
+  const postCall = (passedInMessage) => {
+    axios.post('https://thing3.hosted-models.runwayml.cloud/v1/query', {
+      prompt: passedInMessage,
+    })
+      .then(async function (response) {
+        await response;
+        // await console.log(response);
+        await console.log('postResponse: ', response.data.generated_text);
+        await handleReceiveMessage(response.data.generated_text);
       })
       .catch(function (error) {
-        // handle error
         console.log(error);
-      })
-      .then(function () {
-        // always executed
       });
   };
 
@@ -30,18 +52,31 @@ const ChatWindow = () => {
     // console.log(message);
   };
 
+  const handleReceiveMessage = async (passedInMessage) => {
+    await setGeneratedMessage(passedInMessage);
+    await messageArray.push('LpCpUnK: ' + generatedMessage);
+    await console.log('generatedMessage: ', generatedMessage);
+    await setMessages(messageArray);
+    // setTimeout(async function(){ 
+    //   await messageArray.push('LpCpUnK: ' + generatedMessage);
+    //   await console.log('generatedMessage: ', generatedMessage);
+    //   await setMessages(messageArray);
+    // }, 3000);
+  };
+
   const handleSendMessage = async () => {
-    getCall();
-    await messageArray.push(message);
+    // getCall();
+    await messageArray.push('immausername: ' + message);
     await setMessages(messageArray);
     await console.log('message: ', message);
     await console.log('messages: ', messages);
+    await postCall(message);
     await setMessage('');
     // console.log('messageArray: ', messageArray);
   };
 
   const messageNodes = messageArray.map((message) => {
-    console.log(message + messageArray.length);
+    // console.log(message + messageArray.length);
     return <p key={message + Date.now() + Math.random()}>{message}</p>;
   });
 
