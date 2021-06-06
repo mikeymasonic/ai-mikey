@@ -1,31 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useEventListener from '@use-it/event-listener';
 import './chatWindow.css';
-const axios = require('axios');
-
-
-// const textGrabber = (e) => {
-//   console.log('state will be put in here', e);
-// };
 
 let messageArray = [];
+const axios = require('axios');
 
 const ChatWindow = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-
-  useEventListener('keydown', (e) => {
-    if (e.keyCode === 13) {
-      console.log('enter hit');
-      handleSendMessage();
-    }
-  });
-
-  const handleChange = async (e) => {
-    e.preventDefault();
-    setMessage(e.target.value);
-    // console.log(message);
-  };
 
   const getCall = () => {
     axios.get('https://thing3.hosted-models.runwayml.cloud/v1/info')
@@ -42,31 +24,34 @@ const ChatWindow = () => {
       });
   };
 
+  const handleChange = async (e) => {
+    e.preventDefault();
+    setMessage(e.target.value);
+    // console.log(message);
+  };
+
   const handleSendMessage = async () => {
     getCall();
     await messageArray.push(message);
     await setMessages(messageArray);
     await console.log('message: ', message);
     await console.log('messages: ', messages);
+    await setMessage('');
     // console.log('messageArray: ', messageArray);
   };
 
-  useEffect(() => {
-    const doSomething = () => {
-      if (window.keyCode === 13) {
-        // Cancel the default action, if needed
-        window.preventDefault();
-        // Trigger the button element with a click
-        handleSendMessage();
-      }
-    };
+  const messageNodes = messageArray.map((message) => {
+    console.log(message + messageArray.length);
+    return <p key={message + Date.now() + Math.random()}>{message}</p>;
+  });
 
-    window.addEventListener('keyup', doSomething);
-    return () => {
-      window.removeEventListener('keyup', doSomething);
-    };
-  }, []);
-  
+  useEventListener('keydown', (e) => {
+    if (e.keyCode === 13) {
+      console.log('enter hit');
+      handleSendMessage();
+    }
+  });
+
   return (
     <section className="chatWindow">
       <section style={{ 
@@ -83,7 +68,9 @@ const ChatWindow = () => {
           </section>
         </section>
         <section className="window-body">
-  
+          <section>
+            {messageNodes}
+          </section>
         Message:
           <input
             type='text'
