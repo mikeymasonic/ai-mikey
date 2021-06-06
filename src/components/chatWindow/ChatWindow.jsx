@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useEventListener from '@use-it/event-listener';
 import './chatWindow.css';
 
 let messageArray = [];
+let sendAudio = new Audio('/mp3/send.mp3');
+let receiveAudio = new Audio('/mp3/receive.mp3');
+let loginAudio = new Audio('/mp3/login.mp3');
 const axios = require('axios');
 
 const ChatWindow = () => {
@@ -25,21 +28,19 @@ const ChatWindow = () => {
   //     });
   // };
 
-  // useEffect(() => {
-  //   messageArray.push('LpCpUnK: ' + generatedMessage);
-
-    
-  // }, [postCall]);
+  useEffect(() => {
+    loginAudio.play();
+  }, []);
 
   const postCall = (passedInMessage) => {
     axios.post('https://thing3.hosted-models.runwayml.cloud/v1/query', {
       prompt: passedInMessage,
     })
       .then(async function (response) {
-        await response;
+        // await response;
         // await console.log(response);
-        await console.log('postResponse: ', response.data.generated_text);
-        await handleReceiveMessage(response.data.generated_text);
+        console.log('postResponse: ', response.data.generated_text);
+        handleReceiveMessage(response.data.generated_text);
       })
       .catch(function (error) {
         console.log(error);
@@ -53,19 +54,22 @@ const ChatWindow = () => {
   };
 
   const handleReceiveMessage = async (passedInMessage) => {
-    await setGeneratedMessage(passedInMessage);
-    await messageArray.push('LpCpUnK: ' + generatedMessage);
-    await console.log('generatedMessage: ', generatedMessage);
-    await setMessages(messageArray);
-    // setTimeout(async function(){ 
-    //   await messageArray.push('LpCpUnK: ' + generatedMessage);
-    //   await console.log('generatedMessage: ', generatedMessage);
-    //   await setMessages(messageArray);
-    // }, 3000);
+    // await setGeneratedMessage(passedInMessage);
+    // await messageArray.push('LpCpUnK: ' + generatedMessage);
+    // await console.log('generatedMessage: ', generatedMessage);
+    // await setMessages(messageArray);
+    setTimeout(async function(){ 
+      await setGeneratedMessage(passedInMessage);
+      await messageArray.push('LpCpUnK: ' + generatedMessage);
+      await console.log('generatedMessage: ', generatedMessage);
+      await setMessages(messageArray);
+      receiveAudio.play();
+    }, 3000);
   };
 
   const handleSendMessage = async () => {
     // getCall();
+    sendAudio.play();
     await messageArray.push('immausername: ' + message);
     await setMessages(messageArray);
     await console.log('message: ', message);
