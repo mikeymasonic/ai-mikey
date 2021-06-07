@@ -15,21 +15,40 @@
   background-color: white;
   width: 50vw;
   height: 25vh;
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
   overflow-anchor: none;
+  font-family: 'Times New Roman';
 }
 
 #anchor {
   overflow-anchor: auto;
 }
 
-.botMessage {
+.botUsername {
   color: blue;
-  font-size: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  display: inline;
+}
+
+.userUsername {
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+  display: inline;
+}
+
+.botMessage {
+  color: black;
+  font-family: Verdana;
+  font-size: 10px;
+  display: inline;
 }
 
 .userMessage {
-  color: red;
-  font-size: 40px;
+  color: purple;
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+  font-size: 14px;
+  display: inline;
 }

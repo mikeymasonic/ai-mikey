@@ -52,7 +52,7 @@ const ChatWindow = () => {
       await console.log('generatedMessage: ', passedInMessage);
       await setMessages((oldState) => [
         ...oldState,
-        'LpCpUnK: ' + passedInMessage,
+        { username: 'LpCpUnK: ', message: passedInMessage },
       ]);
       receiveAudio.play();
       // updateScroll();
@@ -60,7 +60,7 @@ const ChatWindow = () => {
   };
 
   const handleSendMessage = async () => {
-    await setMessages((oldState) => [...oldState, username + ': ' + message]);
+    await setMessages((oldState) => [...oldState, { username: username + ': ', message: message }]);
     await console.log('message: ', message);
     await console.log('messages: ', messages);
     await postCall(message);
@@ -69,10 +69,34 @@ const ChatWindow = () => {
   };
 
   const messageNodes = messages.map((message, idx) => {
-    if (message.startsWith('LpCpUnK:')){
-      return <section className={styles.botMessage} key={message + idx}>{message}</section>;
+    if (message.username.startsWith('LpCpUnK:')){
+      return (
+        <section key={message.message + idx} className={styles.message}>
+
+          <section className={styles.botUsername}>
+            {message.username}
+          </section>
+
+          <section className={styles.botMessage}>
+            {message.message}
+          </section>
+
+        </section>
+      );
     } else {
-      return <section className={styles.userMessage} key={message + idx}>{message}</section>;
+      return (
+        <section key={message.message + idx} className={styles.message}>
+
+          <section className={styles.userUsername}>
+            {message.username}
+          </section>
+
+          <section className={styles.userMessage}>
+            {message.message}
+          </section>
+
+        </section>
+      );
     }
   });
 
