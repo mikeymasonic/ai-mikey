@@ -2,17 +2,20 @@ import React, { useState, useEffect } from 'react';
 import useEventListener from '@use-it/event-listener';
 import './chatWindow.css';
 
-let sendAudio = new Audio('/mp3/send.mp3');
-let receiveAudio = new Audio('/mp3/receive.mp3');
-let loginAudio = new Audio('/mp3/login.mp3');
+const sendAudio = new Audio('/mp3/send.mp3');
+const receiveAudio = new Audio('/mp3/receive.mp3');
+const loginAudio = new Audio('/mp3/login.mp3');
 const axios = require('axios');
 
 const ChatWindow = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [username, setUsername] = useState('immausername');
 
   useEffect(() => {
     loginAudio.play();
+    const usernamePrompt = prompt('Please enter a screen name', username);
+    setUsername(usernamePrompt);
   }, []);
 
   const postCall = (passedInMessage) => {
@@ -46,7 +49,7 @@ const ChatWindow = () => {
   };
 
   const handleSendMessage = async () => {
-    await setMessages((oldState) => [...oldState, 'immausername: ' + message]);
+    await setMessages((oldState) => [...oldState, username + ': ' + message]);
     await console.log('message: ', message);
     await console.log('messages: ', messages);
     await postCall(message);
