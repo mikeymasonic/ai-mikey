@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useEventListener from '@use-it/event-listener';
 import './chatWindow.css';
 import styles from './chatWindow.css';
@@ -13,15 +13,18 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState('immausername');
 
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ block: 'end', behavior: 'instant' });
+  };
+  
   useEffect(() => {
     loginAudio.play();
     // const usernamePrompt = prompt('Please enter a screen name', username);
     // setUsername(usernamePrompt);
   }, []);
-  // function updateScroll(){
-  //   const element = document.getElementsByClassName('messageArea');
-  //   element.scrollTop = element.scrollHeight;
-  // }
+  
+  useEffect(scrollToBottom, [messages]);
 
   const postCall = (passedInMessage) => {
     axios
@@ -95,11 +98,8 @@ const ChatWindow = () => {
         }}
         className="window"
       >
-        <section className="title-bar"
-          style={{
-            marginBottom: '0px',
-          }}>
-          <section className="title-bar-text" >mikeyBot</section>
+        <section className="title-bar">
+          <section className="title-bar-text">LpCpUnK - Instant Message</section>
         </section>
         <section className="window-body"
           style={{
@@ -113,6 +113,7 @@ const ChatWindow = () => {
         >
           <section className={styles.messageArea}>
             {messageNodes}
+            <div ref={messagesEndRef} />
           </section>
           < br />
           <div>
@@ -135,12 +136,16 @@ const ChatWindow = () => {
                 marginLeft: '513px',
                 position: 'absolute',
                 fontSize: '18px',
+                backgroundImage: 'url("/src/images/send.png")',
+
               }}
-            >send</button>
+            ></button>
           </div>
+          
         </section>
       </section>
     </section>
+    
   );
 };
 
