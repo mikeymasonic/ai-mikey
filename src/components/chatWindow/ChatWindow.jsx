@@ -90,11 +90,9 @@ const ChatWindow = () => {
       <section
         style={{
           width: '613px',
-          verticalAlign: 'center',
-          marginTop: '200px',
-          marginLeft: '300px',
-          marginRight: '300px',
-          position: 'absolute',
+          marginTop: '20vh',
+          marginLeft: '30vh',
+          position: 'relative',
         }}
         className="window"
       >
@@ -113,6 +111,7 @@ const ChatWindow = () => {
         >
           <section className={styles.messageArea}>
             {messageNodes}
+            <br/>
             <div ref={messagesEndRef} />
           </section>
           < br />
