@@ -12,6 +12,7 @@ const ChatWindow = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState('immausername');
+  const [loading, setLoading] = useState(true);
 
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
@@ -20,11 +21,27 @@ const ChatWindow = () => {
   
   useEffect(() => {
     loginAudio.play();
+    getCall();
     const usernamePrompt = prompt('Please enter a screen name', username);
     setUsername(usernamePrompt);
   }, []);
   
   useEffect(scrollToBottom, [messages]);
+
+  const getCall = () => {
+    axios.get('https://thing3.hosted-models.runwayml.cloud/v1/info')
+      .then(function (response) {
+        setLoading(false);
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
 
   const postCall = (passedInMessage) => {
     axios
@@ -126,6 +143,11 @@ const ChatWindow = () => {
         </section>
         <section className="window-body">
           <section className={styles.messageArea}>
+            {loading && (
+              <section className={styles.userMessage}>
+        loading model, plz wait
+              </section>
+            )}
             <section>{messageNodes}</section>
             <div ref={messagesEndRef} />
           </section>
