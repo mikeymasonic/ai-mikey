@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useEventListener from '@use-it/event-listener';
 import './chatWindow.css';
 import styles from './chatWindow.css';
@@ -13,16 +13,18 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState('immausername');
 
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ block: 'end', behavior: 'instant' });
+  };
+  
   useEffect(() => {
     loginAudio.play();
     // const usernamePrompt = prompt('Please enter a screen name', username);
     // setUsername(usernamePrompt);
   }, []);
-
-  // function updateScroll(){
-  //   const element = document.getElementsByClassName('messageArea');
-  //   element.scrollTop = element.scrollHeight;
-  // }
+  
+  useEffect(scrollToBottom, [messages]);
 
   const postCall = (passedInMessage) => {
     axios
@@ -111,7 +113,7 @@ const ChatWindow = () => {
     <section className="chatWindow">
       <section
         style={{
-          width: '52vw',
+          width: '26vw',
           verticalAlign: 'center',
           marginTop: '25vh',
           marginLeft: '50vh',
@@ -120,16 +122,18 @@ const ChatWindow = () => {
         className="window"
       >
         <section className="title-bar">
-          <section className="title-bar-text">mikeyBot</section>
+          <section className="title-bar-text">LpCpUnK - Instant Message</section>
         </section>
         <section className="window-body">
           <section className={styles.messageArea}>
             <section>{messageNodes}</section>
-            <div id="anchor"></div>
+            <div ref={messagesEndRef} />
           </section>
           <br />
-          <input type="text" value={message} onChange={handleChange} autoFocus/>
-          <button onClick={handleSendMessage}>send</button>
+          <input type="text" value={message} onChange={handleChange} autoFocus className={styles.textArea}/>
+          <section className={styles.sendButtonPosition}>
+            <button className={styles.sendButton} onClick={handleSendMessage}>send</button>
+          </section>
         </section>
       </section>
     </section>

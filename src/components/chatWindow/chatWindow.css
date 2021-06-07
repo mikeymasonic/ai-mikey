@@ -1,19 +1,13 @@
 .chatWindow {
-  width: 50vw;
+  width: 25vw;
   height: 25vh;
   vertical-align: center;
-}
-.textArea {
-  margin: 10px;
-
-  width: 100;
-  height: 50;
 }
 
 .messageArea {
   display: block;
   background-color: white;
-  width: 50vw;
+  width: 25vw;
   height: 25vh;
   overflow: auto;
   overflow-x: hidden;
@@ -21,8 +15,22 @@
   font-family: 'Times New Roman';
 }
 
-#anchor {
-  overflow-anchor: auto;
+.titleBarText {
+  color: white;
+  font-family: 'Times New Roman';
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.textArea {
+  width: 25vw;
+  height: 25vh;
+}
+
+.sendButton {
+  height: 10vh;
+  position: relative;
+  left: 21vw;
 }
 
 .botUsername {
