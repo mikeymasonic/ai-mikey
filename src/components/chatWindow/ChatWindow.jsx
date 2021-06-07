@@ -130,13 +130,14 @@ const ChatWindow = () => {
           <div>
             <button onClick={handleSendMessage}
               style={{
-                width: '80px',
-                height: '65px',
-                marginTop: '321px',
-                marginLeft: '513px',
+                width: '86px',
+                height: '83.5px',
+                marginTop: '320px',
+                marginLeft: '509px',
                 position: 'absolute',
                 fontSize: '18px',
                 backgroundImage: 'url("/src/images/send.png")',
+                backgroundSize: 'cover',
 
               }}
             ></button>
