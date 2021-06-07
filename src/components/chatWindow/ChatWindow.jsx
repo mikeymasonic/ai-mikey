@@ -18,7 +18,6 @@ const ChatWindow = () => {
     // const usernamePrompt = prompt('Please enter a screen name', username);
     // setUsername(usernamePrompt);
   }, []);
-
   // function updateScroll(){
   //   const element = document.getElementsByClassName('messageArea');
   //   element.scrollTop = element.scrollHeight;
@@ -52,7 +51,7 @@ const ChatWindow = () => {
       await console.log('generatedMessage: ', passedInMessage);
       await setMessages((oldState) => [
         ...oldState,
-        { username: 'LpCpUnK: ', message: passedInMessage },
+        'LpCpUnK: ' + passedInMessage,
       ]);
       receiveAudio.play();
       // updateScroll();
@@ -60,7 +59,7 @@ const ChatWindow = () => {
   };
 
   const handleSendMessage = async () => {
-    await setMessages((oldState) => [...oldState, { username: username + ': ', message: message }]);
+    await setMessages((oldState) => [...oldState, username + ': ' + message]);
     await console.log('message: ', message);
     await console.log('messages: ', messages);
     await postCall(message);
@@ -69,34 +68,10 @@ const ChatWindow = () => {
   };
 
   const messageNodes = messages.map((message, idx) => {
-    if (message.username.startsWith('LpCpUnK:')){
-      return (
-        <section key={message.message + idx} className={styles.message}>
-
-          <section className={styles.botUsername}>
-            {message.username}
-          </section>
-
-          <section className={styles.botMessage}>
-            {message.message}
-          </section>
-
-        </section>
-      );
+    if (message.startsWith('LpCpUnK:')){
+      return <section className={styles.botMessage} key={message + idx}>{message}</section>;
     } else {
-      return (
-        <section key={message.message + idx} className={styles.message}>
-
-          <section className={styles.userUsername}>
-            {message.username}
-          </section>
-
-          <section className={styles.userMessage}>
-            {message.message}
-          </section>
-
-        </section>
-      );
+      return <section className={styles.userMessage} key={message + idx}>{message}</section>;
     }
   });
 
@@ -111,25 +86,58 @@ const ChatWindow = () => {
     <section className="chatWindow">
       <section
         style={{
-          width: '52vw',
+          width: '613px',
           verticalAlign: 'center',
-          marginTop: '25vh',
-          marginLeft: '50vh',
-          position: 'unset',
+          marginTop: '200px',
+          marginLeft: '300px',
+          marginRight: '300px',
+          position: 'absolute',
         }}
         className="window"
       >
-        <section className="title-bar">
-          <section className="title-bar-text">mikeyBot</section>
+        <section className="title-bar"
+          style={{
+            marginBottom: '0px',
+          }}>
+          <section className="title-bar-text" >mikeyBot</section>
         </section>
-        <section className="window-body">
+        <section className="window-body"
+          style={{
+            width: '600px',
+            height: '420px',
+            backgroundImage: 'url("/src/images/aim-window-small.png")',
+            backgroundSize: 'cover',
+            marginRight: '0px',
+            marginLeft: '5px',
+          }}
+        >
           <section className={styles.messageArea}>
-            <section>{messageNodes}</section>
-            <div id="anchor"></div>
+            {messageNodes}
           </section>
-          <br />
-          <input type="text" value={message} onChange={handleChange} autoFocus/>
-          <button onClick={handleSendMessage}>send</button>
+          < br />
+          <div>
+            <input type="text" value={message} onChange={handleChange} autoFocus className={styles.inputText}
+              style={{
+                width: '500px',
+                height: '70px',
+                marginTop: '220px',
+                marginLeft: '20px',
+                position: 'absolute',
+              }}
+            />
+          </div>
+          <div>
+            <button onClick={handleSendMessage}
+              style={{
+                width: '80px',
+                height: '65px',
+                marginTop: '321px',
+                marginLeft: '513px',
+                position: 'absolute',
+                fontSize: '18px',
+              }}
+            >send</button>
+          </div>
         </section>
       </section>
     </section>
