@@ -25,12 +25,13 @@
 .textArea {
   width: 25vw;
   height: 25vh;
+  position: relative;
 }
 
 .sendButton {
-  height: 10vh;
+  height: 8vh;
   position: relative;
-  left: 21vw;
+  /* left: 21vw; */
 }
 
 .botUsername {

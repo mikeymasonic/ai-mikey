@@ -20,8 +20,8 @@ const ChatWindow = () => {
   
   useEffect(() => {
     loginAudio.play();
-    // const usernamePrompt = prompt('Please enter a screen name', username);
-    // setUsername(usernamePrompt);
+    const usernamePrompt = prompt('Please enter a screen name', username);
+    setUsername(usernamePrompt);
   }, []);
   
   useEffect(scrollToBottom, [messages]);
