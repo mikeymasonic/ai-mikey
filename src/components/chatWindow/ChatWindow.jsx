@@ -60,11 +60,15 @@ const ChatWindow = () => {
     // await setMessages(messageArray);
     setTimeout(async function(){ 
       await setGeneratedMessage(passedInMessage);
-      await messageArray.push('LpCpUnK: ' + generatedMessage);
+      // await messageArray.push('LpCpUnK: ' + generatedMessage);
       await console.log('generatedMessage: ', generatedMessage);
       await setMessages(messageArray);
       receiveAudio.play();
     }, 3000);
+
+    return(
+      <p>{generatedMessage}</p>
+    );
   };
 
   const handleSendMessage = async () => {
@@ -72,8 +76,8 @@ const ChatWindow = () => {
     sendAudio.play();
     await messageArray.push('immausername: ' + message);
     await setMessages(messageArray);
-    await console.log('message: ', message);
-    await console.log('messages: ', messages);
+    await console.log('message: ', messages);
+    // await console.log('messages: ', messages);
     await postCall(message);
     await setMessage('');
     // console.log('messageArray: ', messageArray);
@@ -81,7 +85,12 @@ const ChatWindow = () => {
 
   const messageNodes = messageArray.map((message) => {
     // console.log(message + messageArray.length);
-    return <p key={message + Date.now() + Math.random()}>{message}</p>;
+    return(
+      <>
+        <p key={message + Date.now() + Math.random()}>{message}</p>
+        <p key={message + Date.now() + Math.random()}> mikeyBot: {generatedMessage}</p>
+      </>
+    );  
   });
 
   useEventListener('keydown', (e) => {
