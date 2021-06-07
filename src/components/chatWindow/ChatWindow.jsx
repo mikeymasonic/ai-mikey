@@ -55,7 +55,6 @@ const ChatWindow = () => {
     await postCall(message);
     await setMessage('');
     sendAudio.play();
-    // console.log('messageArray: ', messageArray);
   };
 
   const messageNodes = messages.map((message, idx) => {
@@ -87,7 +86,7 @@ const ChatWindow = () => {
         <section className="window-body">
           <section>{messageNodes}</section>
           Message:
-          <input type="text" value={message} onChange={handleChange} />
+          <input type="text" value={message} onChange={handleChange} autoFocus/>
           <button onClick={handleSendMessage}>send</button>
         </section>
       </section>
