@@ -20,7 +20,6 @@ const ChatWindow = () => {
   };
   
   useEffect(() => {
-    loginAudio.play();
     getCall();
     const usernamePrompt = prompt('Please enter a screen name', username);
     setUsername(usernamePrompt);
@@ -33,6 +32,7 @@ const ChatWindow = () => {
       .then(function (response) {
         setLoading(false);
         console.log(response);
+        loginAudio.play();
       })
       .catch(function (error) {
         // handle error
